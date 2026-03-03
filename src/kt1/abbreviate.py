@@ -21,4 +21,4 @@ def abbreviate(phrase: str) -> str:
     :return: str - аббревиатура.
     """
 
-    return "".join(word[0].upper() for word in phrase.split())
+    return ""
