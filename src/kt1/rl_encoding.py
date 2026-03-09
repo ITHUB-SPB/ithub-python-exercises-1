@@ -21,8 +21,19 @@ def decode(encoded_string: str) -> str:
     :param encoded_string: str - строка, сжатая алгоритмом RLE.
     :return: str - восстановленная строка.
     """
-
-    return encoded_string
+    result = ""
+    i = 0
+    while i < len(encoded_string):
+        num = ""
+        while i < len(encoded_string) and encoded_string[i].isdigit():
+            num += encoded_string[i]
+            i += 1
+        if num:
+            result += encoded_string[i] * int(num)
+        else:
+            result += encoded_string[i]
+        i += 1
+    return result
 
 
 def encode(initial_string: str) -> str:
@@ -31,5 +42,20 @@ def encode(initial_string: str) -> str:
     :param initial_string: str - исходная строка, содержит символы [a-zA-Z ].
     :return: str - сжатая алгоритмом RLE строка.
     """
-
-    return initial_string
+    if not initial_string:
+        return ""
+    
+    result = ""
+    count = 1
+    for i in range(1, len(initial_string)):
+        if initial_string[i] == initial_string[i - 1]:
+            count += 1
+        else:
+            if count > 1:
+                result += str(count)
+            result += initial_string[i - 1]
+            count = 1
+    if count > 1:
+        result += str(count)
+    result += initial_string[-1]
+    return result

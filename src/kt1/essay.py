@@ -19,8 +19,14 @@ def capitalize_title(title: str) -> str:
     :param title: str - исходное название статьи для обработки.
     :return: str - форматированное название, каждое слово с заглавной буквы.
     """
-
-    return title
+    words = title.split()
+    capitalized_words = []
+    
+    for word in words:
+            capitalized_word = word[0].upper() + word[1:].lower()
+            capitalized_words.append(capitalized_word)
+    
+    return ' '.join(capitalized_words)
 
 
 def check_sentence_ending(sentence: str) -> bool:
@@ -32,8 +38,11 @@ def check_sentence_ending(sentence: str) -> bool:
     :param sentence: str - одно предложение на проверку.
     :return: bool - True если пунктуация корректная, иначе False.
     """
-
-    return False
+    answer = ""
+    if sentence[-1] == '.':
+        return True
+    else:
+        return False
 
 
 def clean_up_spacing(sentence: str) -> str:
@@ -46,8 +55,15 @@ def clean_up_spacing(sentence: str) -> str:
     :return: str - предложение, очищенное от пробелов в начале и конце.
     """
 
-    return sentence
+    start = 0
+    end = len(sentence) - 1
+    
+    while sentence[start] == ' ':
+        start += 1
+    while sentence[end] == ' ':
+        end -= 1
 
+    return sentence[start:end+1]
 
 def replace_word_choice(sentence: str, old_word: str, new_word: str) -> str:
     """Заменяет слова на синонимы.
@@ -60,5 +76,15 @@ def replace_word_choice(sentence: str, old_word: str, new_word: str) -> str:
     :param new_word: str - синоним.
     :return: str - новое, преобразованное предложение.
     """
-
-    return sentence
+    words = sentence.split()
+    result_words = []
+    
+    for word in words:
+        if word == old_word:
+            result_words.append(new_word)
+        elif word == old_word + '.':
+            result_words.append(new_word + '.')
+        else:
+            result_words.append(word)
+    
+    return ' '.join(result_words)
