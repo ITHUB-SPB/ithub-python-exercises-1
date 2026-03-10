@@ -35,5 +35,23 @@ def get_good_coordinates(matrix: Matrix) -> list[Coordinate]:
     :param matrix: Matrix - двумерная матрица высот.
     :return: list[Coordinate] - перечень подходящих координат.
     """
-
-    return [Coordinate(row=0, column=0)]
+    if not matrix or not matrix[0]:
+        return []
+    
+    result = []
+    rows = len(matrix)
+    cols = len(matrix[0])
+    
+    for r in range(rows):
+        row_max = max(matrix[r])
+        
+        for c in range(cols):
+            height = matrix[r][c]
+            if height != row_max:
+                continue
+            
+            col_min = min(matrix[i][c] for i in range(rows))
+            if height == col_min:
+                result.append({"row": r + 1, "column": c + 1})
+    
+    return result

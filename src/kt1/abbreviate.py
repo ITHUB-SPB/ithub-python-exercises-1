@@ -20,5 +20,7 @@ def abbreviate(phrase: str) -> str:
     :param phrase: str - исходная фраза.
     :return: str - аббревиатура.
     """
-
-    return ""
+    clean = phrase.replace('-', ' ')
+    clean = ''.join(c for c in clean if c.isalpha() or c == ' ')
+    
+    return ''.join(word[0] for word in clean.split() if word).upper()

@@ -20,7 +20,7 @@ def capitalize_title(title: str) -> str:
     :return: str - форматированное название, каждое слово с заглавной буквы.
     """
 
-    return title
+    return title.title()
 
 
 def check_sentence_ending(sentence: str) -> bool:
@@ -32,8 +32,9 @@ def check_sentence_ending(sentence: str) -> bool:
     :param sentence: str - одно предложение на проверку.
     :return: bool - True если пунктуация корректная, иначе False.
     """
-
-    return False
+    if len(sentence) == 0:
+        return False  
+    return sentence[-1] == '.'
 
 
 def clean_up_spacing(sentence: str) -> str:
@@ -46,7 +47,7 @@ def clean_up_spacing(sentence: str) -> str:
     :return: str - предложение, очищенное от пробелов в начале и конце.
     """
 
-    return sentence
+    return sentence.strip()
 
 
 def replace_word_choice(sentence: str, old_word: str, new_word: str) -> str:
@@ -61,4 +62,4 @@ def replace_word_choice(sentence: str, old_word: str, new_word: str) -> str:
     :return: str - новое, преобразованное предложение.
     """
 
-    return sentence
+    return sentence.replace(old_word, new_word)

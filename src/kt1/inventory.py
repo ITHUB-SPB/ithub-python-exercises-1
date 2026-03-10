@@ -21,7 +21,8 @@ def create_inventory(items: list[str]) -> dict[str, int]:
     :return: dict[str, int] - словарь с информацией об остатках.
     """
 
-    return {}
+    return {item: items.count(item) for item in set(items)}
+
 
 
 def add_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
@@ -36,7 +37,7 @@ def add_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
     :return: dict[str, int] - обновленное хранилище.
     """
 
-    return {}
+    return {item: inventory.get(item, 0) + items.count(item) for item in set(list(inventory.keys()) + items)}
 
 
 def decrement_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
@@ -57,7 +58,7 @@ def decrement_items(inventory: dict[str, int], items: list[str]) -> dict[str, in
     :return: dict[str, int] - обновленное хранилище.
     """
 
-    return {}
+    return {item: max(0, inventory.get(item, 0) - items.count(item)) for item in inventory}
 
 
 def remove_item(inventory: dict[str, int], item: str) -> dict[str, int]:
@@ -76,7 +77,7 @@ def remove_item(inventory: dict[str, int], item: str) -> dict[str, int]:
     :return: dict[str, int] - обновленное хранилище (исходное, если позиция не найдена).
     """
 
-    return {}
+    return {k: v for k, v in inventory.items() if k != item}
 
 
 def list_inventory(inventory: dict[str, int]):
@@ -89,4 +90,4 @@ def list_inventory(inventory: dict[str, int]):
     :return: list[tuple[str, int]] - кортежи (позиция, количество) для позиций, по которым имеются остатки.
     """
 
-    return []
+    return sorted(filter(lambda x: x[1] > 0, inventory.items()))
