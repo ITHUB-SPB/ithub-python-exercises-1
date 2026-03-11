@@ -29,11 +29,26 @@ def get_good_coordinates(matrix: Matrix) -> list[Coordinate]:
     """
     Определяет координаты подходящих деревьев.
 
-    >>> saddle_points([[9, 8, 7], [5, 3, 2], [6, 6, 7]])
-    [ { "row": 2, "column": 1 } ]
+    >>> get_good_coordinates([[9, 8, 7], [5, 3, 2], [6, 6, 7]])
+    [{'row': 2, 'column': 1}]
 
     :param matrix: Matrix - двумерная матрица высот.
     :return: list[Coordinate] - перечень подходящих координат.
     """
+    result = []
 
-    return [Coordinate(row=0, column=0)]
+    for i in range (len(matrix)):
+        max_row = max(matrix[i])
+
+        for j in range (len(matrix[i])):
+            column = []
+
+            for k in range (len(matrix)):
+                column.append(matrix[k][j])
+
+            column_min = min(column)
+
+            if matrix[i][j] == max_row and matrix[i][j] == column_min:
+                result.append(Coordinate(row=i +1, column=j +1))
+
+    return result

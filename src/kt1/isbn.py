@@ -28,5 +28,21 @@ def is_valid(isbn: str) -> bool:
     :param isbn: str - код, с разделяющими дефисами или без них.
     :return: bool - логическое значение корректности.
     """
+    isbn = isbn.replace('-', '')
 
-    return True
+    if len(isbn) != 10:
+        return False
+
+    total = 0
+
+    for i in range(10):
+        if isbn[i] == 'X':
+            num = 10
+        else:
+            if not isbn[1].isdigit():
+                return False
+            num = int(isbn[i])
+
+        total += num * (10 - i)
+
+    return total % 11 == 0
