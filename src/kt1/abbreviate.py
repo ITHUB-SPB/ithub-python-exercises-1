@@ -6,19 +6,26 @@ def abbreviate(phrase: str) -> str:
     с пробелами, иную пунктуацию игнорирует.
 
     >>> abbreviate("Portable Network Graphics")
-    PNG
+    'PNG'
 
     >>> abbreviate("As Soon As Possible")
-    ASAP
+    'ASAP'
 
     >>> abbreviate("Liquid-crystal display")
-    LCD
+    'LCD'
 
     >>> abbreviate("Hello World!")
-    HW
+    'HW'
 
     :param phrase: str - исходная фраза.
     :return: str - аббревиатура.
     """
+    result = ''
+    words = phrase.replace("-"," ").split()
 
-    return ""
+    for word in words:
+        result += word[0].upper()
+
+    return result
+
+print(abbreviate("Portable Network Graphics"))

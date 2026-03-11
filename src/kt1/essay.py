@@ -14,13 +14,18 @@ def capitalize_title(title: str) -> str:
     Форматирует строку, чтобы каждое слово начиналось с заглавной буквы.
 
     >>> capitalize_title("my hobbies")
-    "My Hobbies"
+    'My Hobbies'
 
     :param title: str - исходное название статьи для обработки.
     :return: str - форматированное название, каждое слово с заглавной буквы.
     """
 
-    return title
+    words = title.split()
+
+    for i in range(len(words)):
+        words[i] = words[i].capitalize()
+
+    return ' '.join(words)
 
 
 def check_sentence_ending(sentence: str) -> bool:
@@ -33,27 +38,28 @@ def check_sentence_ending(sentence: str) -> bool:
     :return: bool - True если пунктуация корректная, иначе False.
     """
 
-    return False
+    return sentence.endswith('.')
+
 
 
 def clean_up_spacing(sentence: str) -> str:
     """Удаляет пробельные символы с начала и конца предложения.
 
     >>> clean_up_spacing(" I like to go on hikes with my dog.  ")
-    "I like to go on hikes with my dog."
+    'I like to go on hikes with my dog.'
 
     :param sentence: str - одно исходное предложение.
     :return: str - предложение, очищенное от пробелов в начале и конце.
     """
 
-    return sentence
+    return sentence.strip()
 
 
 def replace_word_choice(sentence: str, old_word: str, new_word: str) -> str:
     """Заменяет слова на синонимы.
 
     >>> replace_word_choice("I bake good cakes.", "good", "amazing")
-    "I bake amazing cakes."
+    'I bake amazing cakes.'
 
     :param sentence: str - одно исходное предложение.
     :param old_word: str - слово, которое мы хотим заменить синонимом.
@@ -61,4 +67,4 @@ def replace_word_choice(sentence: str, old_word: str, new_word: str) -> str:
     :return: str - новое, преобразованное предложение.
     """
 
-    return sentence
+    return sentence.replace(old_word, new_word)
