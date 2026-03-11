@@ -1,13 +1,3 @@
-"""
-В этом задании нужно закодить программу-ассистента для помощи в проверке экзаменов:
-
-1. Округление баллов
-2. Список лучших результатов
-3. Перевод в пятибальную систему
-4. Вывод рейтинга
-"""
-
-
 def round_scores(student_scores: list[float | int]) -> list[int]:
     """Округляет все переданные баллы до целых.
 
@@ -17,8 +7,7 @@ def round_scores(student_scores: list[float | int]) -> list[int]:
     :param student_scores: list[float | int] - список исходных оценок.
     :return: list[int] - новый список округленных оценок.
     """
-
-    return []
+    return [round(score) for score in student_scores]
 
 
 def above_threshold(student_scores: list[int], threshold: int) -> list[int]:
@@ -33,8 +22,7 @@ def above_threshold(student_scores: list[int], threshold: int) -> list[int]:
     :param threshold: int - пороговый балл.
     :return: list[int] - новый список с баллами не ниже порогового.
     """
-
-    return []
+    return [score for score in student_scores if score >= threshold]
 
 
 def letter_grades(highest: int) -> list[int]:
@@ -67,8 +55,14 @@ def letter_grades(highest: int) -> list[int]:
     :param highest: int - наивысший полученный балл.
     :return: list - наименьшие баллы, с которых начинаются тройка, четверка и пятёрка.
     """
-
-    return []
+    
+    step = (highest - 40) // 4
+    
+    grade_3_start = 41 + step
+    grade_4_start = grade_3_start + step            #выч размер интервала для оценки, от 40 до хегест вкл, делим на 4(неуд 3 4 5), но неуд вкл 40
+    grade_5_start = grade_4_start + step
+    
+    return [grade_3_start, grade_4_start, grade_5_start]
 
 
 def student_ranking(student_scores: list[int], student_names: list[str]) -> list[str]:
@@ -87,5 +81,7 @@ def student_ranking(student_scores: list[int], student_names: list[str]) -> list
     :param student_names: list[str] - список имён студентов, расположенных по убыванию оценок.
     :return: list[str] - список строк в формате "<rank>. <student name>: <score>".
     """
-
-    return []
+    result = []
+    for i in range(len(student_scores)):
+        result.append(f"{i + 1}. {student_names[i]}: {student_scores[i]}")
+    return result

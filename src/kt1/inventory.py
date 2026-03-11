@@ -1,16 +1,3 @@
-"""
-Хранилище представляет собой ассоциативный массив вида { "позиция": остаток }, например { "wood": 7, "diamond": 0 }.
-
-Разработайте набор функций для управления хранилищем:
-
-1. Создание хранилища
-2. Добавление товаров (приёмка)
-3. Уменьшение количества товаров (отгрузка)
-4. Удаление позиции
-5. Выгрузка товаров с ненулевым остатком
-"""
-
-
 def create_inventory(items: list[str]) -> dict[str, int]:
     """Формирует словарь для отслеживания остатков по каждой из позиций.
 
@@ -20,8 +7,13 @@ def create_inventory(items: list[str]) -> dict[str, int]:
     :param items: list[str] - исходный список товаров.
     :return: dict[str, int] - словарь с информацией об остатках.
     """
-
-    return {}
+    inventory = {}
+    for item in items:
+        if item in inventory:
+            inventory[item] += 1
+        else:
+            inventory[item] = 1
+    return inventory
 
 
 def add_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
@@ -35,8 +27,12 @@ def add_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
     :param items: list[str] - приход новых товаров.
     :return: dict[str, int] - обновленное хранилище.
     """
-
-    return {}
+    for item in items:
+        if item in inventory:
+            inventory[item] += 1
+        else:
+            inventory[item] = 1
+    return inventory
 
 
 def decrement_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
@@ -56,8 +52,10 @@ def decrement_items(inventory: dict[str, int], items: list[str]) -> dict[str, in
     :param items: list[str] - список товаров на отгрузку (заказ).
     :return: dict[str, int] - обновленное хранилище.
     """
-
-    return {}
+    for item in items:
+        if item in inventory and inventory[item] > 0:
+            inventory[item] -= 1
+    return inventory
 
 
 def remove_item(inventory: dict[str, int], item: str) -> dict[str, int]:
@@ -75,8 +73,9 @@ def remove_item(inventory: dict[str, int], item: str) -> dict[str, int]:
     :param item: str - именование позиции для удаления.
     :return: dict[str, int] - обновленное хранилище (исходное, если позиция не найдена).
     """
-
-    return {}
+    if item in inventory:
+        del inventory[item]
+    return inventory
 
 
 def list_inventory(inventory: dict[str, int]):
@@ -88,5 +87,9 @@ def list_inventory(inventory: dict[str, int]):
     :param inventory: dict[str, int] - хранилище.
     :return: list[tuple[str, int]] - кортежи (позиция, количество) для позиций, по которым имеются остатки.
     """
-
-    return []
+    result = []
+    for item, count in inventory.items():
+        if count > 0:
+            result.append((item, count))
+    result.sort(key=lambda x: x[0])                 #сортируем по назв предсказ порядка
+    return result

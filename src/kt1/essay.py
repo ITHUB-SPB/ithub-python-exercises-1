@@ -1,13 +1,3 @@
-"""
-Напишите вспомогательные функции для редактуры статей:
-
-1. Все слова в названии статьи должны быть написаны с заглавных букв.
-2. Каждое предложение должно завершаться точкой.
-3. Лишние пробельные символы в начале и конце предложения должны быть удалены
-4. Уметь заменять слова синонимами.
-"""
-
-
 def capitalize_title(title: str) -> str:
     """Форматирует название статьи.
 
@@ -19,8 +9,9 @@ def capitalize_title(title: str) -> str:
     :param title: str - исходное название статьи для обработки.
     :return: str - форматированное название, каждое слово с заглавной буквы.
     """
-
-    return title
+    words = title.split()
+    capitalized_words = [word.capitalize() for word in words]           #разбив и делаем заглав
+    return ' '.join(capitalized_words)
 
 
 def check_sentence_ending(sentence: str) -> bool:
@@ -32,8 +23,7 @@ def check_sentence_ending(sentence: str) -> bool:
     :param sentence: str - одно предложение на проверку.
     :return: bool - True если пунктуация корректная, иначе False.
     """
-
-    return False
+    return sentence.endswith('.')
 
 
 def clean_up_spacing(sentence: str) -> str:
@@ -45,8 +35,7 @@ def clean_up_spacing(sentence: str) -> str:
     :param sentence: str - одно исходное предложение.
     :return: str - предложение, очищенное от пробелов в начале и конце.
     """
-
-    return sentence
+    return sentence.strip()
 
 
 def replace_word_choice(sentence: str, old_word: str, new_word: str) -> str:
@@ -60,5 +49,4 @@ def replace_word_choice(sentence: str, old_word: str, new_word: str) -> str:
     :param new_word: str - синоним.
     :return: str - новое, преобразованное предложение.
     """
-
-    return sentence
+    return sentence.replace(old_word, new_word)
