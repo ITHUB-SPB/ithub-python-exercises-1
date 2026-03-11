@@ -21,4 +21,15 @@ def abbreviate(phrase: str) -> str:
     :return: str - аббревиатура.
     """
 
-    return ""
+    phrase = phrase.replace('-', ' ')
+    
+    
+    words = phrase.split()
+    
+    
+    abbreviation = ''
+    for word in words:
+        if word and word[0].isalpha():
+            abbreviation += word[0].upper()
+    
+    return abbreviation
