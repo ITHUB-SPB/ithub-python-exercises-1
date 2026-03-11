@@ -52,7 +52,7 @@ def get_good_coordinates(matrix: Matrix) -> list[Coordinate]:
     # Для каждого элемента проверяем условия
     for i in range(rows):
         for j in range(cols):
-            current_value = matrix[i][j]
+            current_value = matrix[i][j]@
             
             # Проверяем, является ли элемент максимальным в своей строке
             is_max_in_row = True
