@@ -35,5 +35,6 @@ def get_good_coordinates(matrix: Matrix) -> list[Coordinate]:
     :param matrix: Matrix - двумерная матрица высот.
     :return: list[Coordinate] - перечень подходящих координат.
     """
+    
 
     return [Coordinate(row=0, column=0)]

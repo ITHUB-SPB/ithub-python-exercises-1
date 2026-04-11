@@ -20,8 +20,10 @@ def create_inventory(items: list[str]) -> dict[str, int]:
     :param items: list[str] - исходный список товаров.
     :return: dict[str, int] - словарь с информацией об остатках.
     """
-
-    return {}
+    inventory = {}
+    for item in items:
+        inventory[item] = inventory.get(item, 0) + 1
+    return inventory
 
 
 def add_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
@@ -36,8 +38,9 @@ def add_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
     :return: dict[str, int] - обновленное хранилище.
     """
 
-    return {}
-
+    for item in items:
+        inventory[item] = inventory.get(item, 0) + 1
+    return inventory
 
 def decrement_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
     """Уменьшает количество остатков на основании заказа на отгрузку.
@@ -57,8 +60,10 @@ def decrement_items(inventory: dict[str, int], items: list[str]) -> dict[str, in
     :return: dict[str, int] - обновленное хранилище.
     """
 
-    return {}
-
+    for item in items:
+        if item in inventory and inventory[item] > 0:
+            inventory[item] -= 1
+    return inventory
 
 def remove_item(inventory: dict[str, int], item: str) -> dict[str, int]:
     """Удаляет позицию из хранилища.
@@ -76,7 +81,9 @@ def remove_item(inventory: dict[str, int], item: str) -> dict[str, int]:
     :return: dict[str, int] - обновленное хранилище (исходное, если позиция не найдена).
     """
 
-    return {}
+    if item in inventory:
+        del inventory[item]
+    return inventory
 
 
 def list_inventory(inventory: dict[str, int]):
@@ -89,4 +96,4 @@ def list_inventory(inventory: dict[str, int]):
     :return: list[tuple[str, int]] - кортежи (позиция, количество) для позиций, по которым имеются остатки.
     """
 
-    return []
+    return [(item, count) for item, count in inventory.items() if count > 0]
