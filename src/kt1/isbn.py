@@ -29,4 +29,23 @@ def is_valid(isbn: str) -> bool:
     :return: bool - логическое значение корректности.
     """
 
-    return True
+    cleaned = isbn.replace("-", "")
+    
+    if len(cleaned) != 10:
+        return False
+    
+    checksum = 0
+    for i, char in enumerate(cleaned):
+        if i < 9:
+            if not char.isdigit():
+                return False
+            checksum += int(char) * (10 - i)
+        else:
+            if char.isdigit():
+                checksum += int(char) * 1
+            elif char == 'X':
+                checksum += 10 * 1
+            else:
+                return False
+    
+    return checksum % 11 == 0

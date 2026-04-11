@@ -21,7 +21,13 @@ def create_inventory(items: list[str]) -> dict[str, int]:
     :return: dict[str, int] - словарь с информацией об остатках.
     """
 
-    return {}
+    inventory = {}
+    for item in items:
+        if item in inventory:
+            inventory[item] += 1
+        else:
+            inventory[item] = 1
+    return inventory
 
 
 def add_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
@@ -36,7 +42,12 @@ def add_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
     :return: dict[str, int] - обновленное хранилище.
     """
 
-    return {}
+    for item in items:
+        if item in inventory:
+            inventory[item] += 1
+        else:
+            inventory[item] = 1
+    return inventory
 
 
 def decrement_items(inventory: dict[str, int], items: list[str]) -> dict[str, int]:
@@ -57,7 +68,12 @@ def decrement_items(inventory: dict[str, int], items: list[str]) -> dict[str, in
     :return: dict[str, int] - обновленное хранилище.
     """
 
-    return {}
+    for item in items:
+        if item in inventory:
+            inventory[item] -= 1
+            if inventory[item] < 0:
+                inventory[item] = 0
+    return inventory
 
 
 def remove_item(inventory: dict[str, int], item: str) -> dict[str, int]:
@@ -76,7 +92,9 @@ def remove_item(inventory: dict[str, int], item: str) -> dict[str, int]:
     :return: dict[str, int] - обновленное хранилище (исходное, если позиция не найдена).
     """
 
-    return {}
+    if item in inventory:
+        del inventory[item]
+    return inventory
 
 
 def list_inventory(inventory: dict[str, int]):
@@ -89,4 +107,9 @@ def list_inventory(inventory: dict[str, int]):
     :return: list[tuple[str, int]] - кортежи (позиция, количество) для позиций, по которым имеются остатки.
     """
 
-    return []
+    result = []
+    for item, count in inventory.items():
+        if count > 0:
+            result.append((item, count))
+    result.sort()
+    return result

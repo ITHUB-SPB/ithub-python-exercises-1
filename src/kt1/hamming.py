@@ -28,4 +28,11 @@ def distance(string_1: str, string_2: str) -> int:
     :throws: ValueError - при несовпадении длин последовательностей.
     """
 
-    return 0
+    if len(string_1) != len(string_2):
+        raise ValueError("Strings must be of equal length.")
+    
+    count = 0
+    for char_1, char_2 in zip(string_1, string_2):
+        if char_1 != char_2:
+            count += 1
+    return count

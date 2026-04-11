@@ -22,7 +22,21 @@ def decode(encoded_string: str) -> str:
     :return: str - восстановленная строка.
     """
 
-    return encoded_string
+    result = ""
+    i = 0
+    while i < len(encoded_string):
+        if encoded_string[i].isdigit():
+            count = ""
+            while i < len(encoded_string) and encoded_string[i].isdigit():
+                count += encoded_string[i]
+                i += 1
+            if i < len(encoded_string):
+                result += encoded_string[i] * int(count)
+                i += 1
+        else:
+            result += encoded_string[i]
+            i += 1
+    return result
 
 
 def encode(initial_string: str) -> str:
@@ -32,4 +46,20 @@ def encode(initial_string: str) -> str:
     :return: str - сжатая алгоритмом RLE строка.
     """
 
-    return initial_string
+    if not initial_string:
+        return ""
+    
+    result = ""
+    i = 0
+    while i < len(initial_string):
+        char = initial_string[i]
+        count = 1
+        while i + count < len(initial_string) and initial_string[i + count] == char:
+            count += 1
+        
+        if count > 1:
+            result += str(count) + char
+        else:
+            result += char
+        i += count
+    return result

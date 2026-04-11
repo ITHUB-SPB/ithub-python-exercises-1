@@ -36,4 +36,23 @@ def get_good_coordinates(matrix: Matrix) -> list[Coordinate]:
     :return: list[Coordinate] - перечень подходящих координат.
     """
 
-    return [Coordinate(row=0, column=0)]
+    if not matrix:
+        return []
+    
+    if len(matrix) > 0:
+        first_row_len = len(matrix[0])
+        for row in matrix:
+            if len(row) != first_row_len:
+                raise ValueError("irregular matrix")
+    
+    result = []
+    
+    for row_idx, row in enumerate(matrix):
+        for col_idx, value in enumerate(row):
+            is_max_in_row = all(value >= cell for cell in row)
+            is_min_in_col = all(value <= matrix[r][col_idx] for r in range(len(matrix)))
+            
+            if is_max_in_row and is_min_in_col:
+                result.append(Coordinate(row=row_idx + 1, column=col_idx + 1))
+    
+    return result

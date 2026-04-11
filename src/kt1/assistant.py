@@ -18,7 +18,7 @@ def round_scores(student_scores: list[float | int]) -> list[int]:
     :return: list[int] - новый список округленных оценок.
     """
 
-    return []
+    return [round(score) for score in student_scores]
 
 
 def above_threshold(student_scores: list[int], threshold: int) -> list[int]:
@@ -34,7 +34,7 @@ def above_threshold(student_scores: list[int], threshold: int) -> list[int]:
     :return: list[int] - новый список с баллами не ниже порогового.
     """
 
-    return []
+    return [score for score in student_scores if score >= threshold]
 
 
 def letter_grades(highest: int) -> list[int]:
@@ -68,7 +68,14 @@ def letter_grades(highest: int) -> list[int]:
     :return: list - наименьшие баллы, с которых начинаются тройка, четверка и пятёрка.
     """
 
-    return []
+    lowest = 40
+    range_size = (highest - lowest) // 4
+    
+    grade_3 = lowest + range_size + 1
+    grade_4 = grade_3 + range_size
+    grade_5 = grade_4 + range_size
+    
+    return [grade_3, grade_4, grade_5]
 
 
 def student_ranking(student_scores: list[int], student_names: list[str]) -> list[str]:
@@ -88,4 +95,7 @@ def student_ranking(student_scores: list[int], student_names: list[str]) -> list
     :return: list[str] - список строк в формате "<rank>. <student name>: <score>".
     """
 
-    return []
+    result = []
+    for rank, (name, score) in enumerate(zip(student_names, student_scores), 1):
+        result.append(f"{rank}. {name}: {score}")
+    return result
